@@ -1,7 +1,7 @@
 from app import app
 from app.models.product import Product
 from flask import render_template, redirect, url_for, request, send_from_directory
-from os import listdir, path
+from os import listdir, path, getcwd
 import json
 
 @app.route('/')
@@ -27,7 +27,6 @@ def products():
         with open(f'app/products/{product}.json', 'r') as opinions:
             json_arr = json.load(opinions)
             data_list.append({'id':json_arr['product_id'], 'name':json_arr['product_name'], 'number_of_opinions':str(json_arr['number_of_opinions']), 'pros_count':str(json_arr['pros_count']), 'cons_count':str(json_arr['cons_count']), 'score':str(json_arr['score'])})
-            print(data_list)
     
     return render_template('products.html.jinja', products=data_list)
 
@@ -47,4 +46,4 @@ def about():
 
 @app.route('/download/<product_id>')
 def download(product_id):
-    return send_from_directory(directory = 'products', filename = f'{product_id}.json', as_attachment = True)
+   return send_from_directory(directory = 'products', path = f'{product_id}.json', as_attachment = True)

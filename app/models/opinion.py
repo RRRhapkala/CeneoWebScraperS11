@@ -29,8 +29,7 @@ class Opinion:
         self.purchase_date = purchase_date
         self.useful = useful
         self.useless = useless
-        self.pros_count = 0
-        self.cons_count = 0
+        
     
     def extract_opinion(self, opinion):
         for key, args in self.selectors.items():
@@ -44,8 +43,8 @@ class Opinion:
         self.purchased = bool(self.purchased)
         self.useful = int(self.useful)
         self.useless = int(self.useless)
-        self.pros_count += len(self.pros)
-        self.cons_count += len(self.cons)
+        self.pros_count = len(self.pros)
+        self.cons_count = len(self.cons)
         return self
     
     def __str__(self):
